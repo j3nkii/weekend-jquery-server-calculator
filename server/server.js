@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const app = express();
 const PORT = 5000;
 
-app.use(express.static('public'));
+app.use(express.static('server/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.listen(PORT, () => {
@@ -16,6 +16,7 @@ app.listen(PORT, () => {
 //----------------SERVER SETUP COMPLETE----------------\\
 
 //-------------------Client side Code-------------------\\
+/*
     //get data from server
     $.ajax({
         method: "GET",
@@ -35,12 +36,14 @@ app.listen(PORT, () => {
 //-----------------------------------------------------\\
 
 //-------------------Server Side Code------------------\\
+
     //get data from server
     app.get('/url', (req, res) => {
-        res.send(/*Data*/);
+        res.send();
     });
     //send data to server
     app.post('/url', (req, res) => {
         console.log(req.body); //req.body will equal whatever was sent. 
         res.sendStatus(201)
     });
+*/
