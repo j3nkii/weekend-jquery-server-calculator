@@ -8,6 +8,7 @@ function ready(){
 }
 
 //in strech, could take in array, to take in, more than 2 numbers
+//grabs inputs and sends to server
 function sendToServer(event){
     event.preventDefault();
     console.log('clicky');
@@ -18,13 +19,23 @@ function sendToServer(event){
         secondNumber: $('#secondNumber').val()
     }
     console.log('SEND TO SERVER :calculation:',calculation);
-    
     $.ajax({
         method: 'POST',
         url: '/calc-send',
         data: calculation,
     }).then((response) => {
         console.log('POST', response);
+        gatherFromServer()
+    });
+}
+
+//gather data from server
+function gatherFromServer(){
+    $.ajax({
+        method: "GET",
+        url: "/calc-log"
+    }).then((response) => {
+        console.log(response);
     });
 }
 

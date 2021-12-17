@@ -15,18 +15,25 @@ app.listen(PORT, () => {
 })
 //----------------SERVER SETUP COMPLETE----------------\\
 let logOfCalculations = [];
+//end global vars
 
+//receive data from user DOM
 app.post('/calc-send', (req, res) => {
-    console.log('DATA RECEIVED',req.body); //req.body will equal whatever was sent. 
+    console.log('DATA RECEIVED',req.body);
     let calculation = req.body;
     calcuuLator3000(calculation);
     console.log('CALCO3000', calculation)
+    logOfCalculations.unshift(calculation)
     res.sendStatus(201)
+});
+
+//create send to DOM, sending current calculation result, plus log
+app.get('/calc-log', (req, res) => {
+    res.send(logOfCalculations);
 });
 
 //function to handle operator
 function calcuuLator3000(obj){
-    console.log('FUCK', obj, obj.operator);
     switch (obj.operator) {
         case '+':
             obj.result = 
@@ -49,3 +56,4 @@ function calcuuLator3000(obj){
             break;
     }
 }
+
