@@ -12,14 +12,12 @@ function sendToServer(event){
     event.preventDefault();
     console.log('clicky');
     //create function for one operand at a time
-    let calculation = {package: 
-        [ 
-            {firstNumber: $('#firstNumber').val()},
-            operatorInput,
-            {secondNumber: $('#secondNumber').val()},
-        ]
+    let calculation = {
+        firstNumber: $('#firstNumber').val(),
+        operator: operatorInput,
+        secondNumber: $('#secondNumber').val()
     }
-    console.log(calculation);
+    console.log('SEND TO SERVER :calculation:',calculation);
     
     $.ajax({
         method: 'POST',
@@ -28,13 +26,12 @@ function sendToServer(event){
     }).then((response) => {
         console.log('POST', response);
     });
-    console.log(calculation);
 }
 
 //captures last operator and stores to global var
 //also return var
 function operatorCapture(){
-    operatorInput = $(this).data();
-    console.log($(this).data());
+    operatorInput = $(this).data('operator');
+    console.log('OPERATORCAPTURE:', $(this).data('operator'));
 }
 
