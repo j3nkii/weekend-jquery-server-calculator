@@ -7,12 +7,12 @@ function ready(){
     $(document).on('click', '.operatorInput', operatorCapture)
 }
 
+
+
 //in strech, could take in array, to take in, more than 2 numbers
 //grabs inputs and sends to server
 function sendToServer(event){
     event.preventDefault();
-    console.log('clicky');
-    //create function for one operand at a time
     let calculation = {
         firstNumber: $('#firstNumber').val(),
         operator: operatorInput,
@@ -29,6 +29,8 @@ function sendToServer(event){
     });
 }
 
+
+
 //gather data from server
 function gatherFromServer(){
     $.ajax({
@@ -36,8 +38,11 @@ function gatherFromServer(){
         url: "/calc-log"
     }).then((response) => {
         console.log(response);
+        renderHTML(response)
     });
 }
+
+
 
 //captures last operator and stores to global var
 //also return var
@@ -46,3 +51,20 @@ function operatorCapture(){
     console.log('OPERATORCAPTURE:', $(this).data('operator'));
 }
 
+
+
+//render object data to DOM
+function renderHTML(logArray){
+    console.log(logArray[0].results);
+    $('#lastestResults').text(`
+        ${logArray[0].result}
+    `)
+    $('#calcOutputs').empty();
+    for(let history of logArray){
+        $('#calcOutputs').append(`
+            <li>
+                ${history.firstNumber} ${history.operator} ${history.secondNumber} = ${history.result}
+            </li>
+        `);
+    }
+}

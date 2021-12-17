@@ -37,7 +37,7 @@ function calcuuLator3000(obj){
     switch (obj.operator) {
         case '+':
             obj.result = 
-            obj.firstNumber + obj.secondNumber;
+            Number(obj.firstNumber) + Number(obj.secondNumber);
             break;
         case '-':
             obj.result = 
