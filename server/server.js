@@ -15,35 +15,7 @@ app.listen(PORT, () => {
 })
 //----------------SERVER SETUP COMPLETE----------------\\
 
-//-------------------Client side Code-------------------\\
-/*
-    //get data from server
-    $.ajax({
-        method: "GET",
-        url: "/url"
-    }).then((response) => {
-        console.log(response);
-        handle(response)
-    });
-    //send data to server
-    $.ajax({
-        method: 'POST',
-        url: '/url',
-        data: newItem,
-    }).then((response) => {
-        console.log('POST', response);
-    });
-//-----------------------------------------------------\\
-
-//-------------------Server Side Code------------------\\
-
-    //get data from server
-    app.get('/url', (req, res) => {
-        res.send();
-    });
-    //send data to server
-    app.post('/url', (req, res) => {
-        console.log(req.body); //req.body will equal whatever was sent. 
-        res.sendStatus(201)
-    });
-*/
+app.post('/calc-send', (req, res) => {
+    console.log(req.body); //req.body will equal whatever was sent. 
+    res.sendStatus(201)
+});

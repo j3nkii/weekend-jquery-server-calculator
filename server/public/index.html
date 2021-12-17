@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="stylesheets/styles.css">
     <script src="scripts/jquery-3.6.0.js"></script>
     <script src="scripts/client.js"></script>
-    <title>Document</title>
+    <title>Calcuu Lator 3000</title>
 </head>
 <body>
     <form id="calcInputs">
         <input id="firstNumber" type="number">
-        <button class="operandInput" id="plusInput">+</button>
-        <button class="operandInput" id="minusInput">-</button>
-        <button class="operandInput" id="multiplicationInput">*</button>
-        <button class="operandInput" id="divisionInput">/</button>
+        <button data-operator="+" class="operatorInput" id="plusInput" type="button">+</button>
+        <button data-operator="-" class="operatorInput" id="minusInput" type="button">-</button>
+        <button data-operator="*" class="operatorInput" id="multiplicationInput" type="button">*</button>
+        <button data-operator="/" class="operatorInput" id="divisionInput" type="button">/</button>
         <input id="secondNumber" type="number">
         <input id="calcSubmission" type="submit">
         <button id="clearCalcInputs">C</button>

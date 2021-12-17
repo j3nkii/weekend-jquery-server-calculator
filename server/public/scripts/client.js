@@ -1,7 +1,10 @@
+let operatorInput = {operator: null};
+
 $(ready)
 function ready(){
     console.log('js+jq in order');
-    $(document).on('submit', '#calcInputs', sendToServer)
+    $(document).on('submit', '#calcInputs', sendToServer);
+    $(document).on('click', '.operatorInput', operatorCapture)
 }
 
 //in strech, could take in array, to take in, more than 2 numbers
@@ -12,16 +15,26 @@ function sendToServer(event){
     let calculation = {package: 
         [ 
             {firstNumber: $('#firstNumber').val()},
-            //{operand: operandInputHolder()}, //use DOM to store true false data for button presses if data true pull and push
+            operatorInput,
             {secondNumber: $('#secondNumber').val()},
         ]
     }
+    console.log(calculation);
+    
     $.ajax({
         method: 'POST',
-        url: '/url',
-        data: newItem,
+        url: '/calc-send',
+        data: calculation,
     }).then((response) => {
         console.log('POST', response);
     });
     console.log(calculation);
 }
+
+//captures last operator and stores to global var
+//also return var
+function operatorCapture(){
+    operatorInput = $(this).data();
+    console.log($(this).data());
+}
+
