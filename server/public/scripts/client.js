@@ -1,8 +1,7 @@
-let operatorInput = {operator: null};
+let operatorInput = '';
 
 $(ready)
 function ready(){
-    console.log('js+jq in order');
     $(document).on('submit', '#calcInputs', sendToServer);
     $(document).on('click', '.operatorInput', operatorCapture)
 }
@@ -13,16 +12,11 @@ function ready(){
 //grabs inputs and sends to server
 function sendToServer(event){
     event.preventDefault();
-    let calculation = {
-        firstNumber: $('#firstNumber').val(),
-        operator: operatorInput,
-        secondNumber: $('#secondNumber').val()
-    }
-    console.log('SEND TO SERVER :calculation:',calculation);
+    console.log('SEND TO SERVER :calculation:',operatorInput);
     $.ajax({
         method: 'POST',
         url: '/calc-send',
-        data: calculation,
+        data: {package: $('#calcInput').val()}
     }).then((response) => {
         console.log('POST', response);
         gatherFromServer()
@@ -47,14 +41,25 @@ function gatherFromServer(){
 //captures last operator and stores to global var
 //also return var
 function operatorCapture(){
-    operatorInput = $(this).data('operator');
-    console.log('OPERATORCAPTURE:', $(this).data('operator'));
+    if($(this).data('operator') === '+' || 
+        $(this).data('operator') === '-' || 
+        $(this).data('operator') === '*' || 
+        $(this).data('operator') === '/'){
+            operatorInput += ' ' + $(this).data('operator') + ' ';
+            $('#calcInput').val(String(operatorInput))
+            console.log('OPERATORCAPTURE:', $(this).data('operator'));
+    } else {
+        operatorInput += $(this).data('operator');        
+        $('#calcInput').val(String(operatorInput))
+        console.log('OPERATORCAPTURE:', $(this).data('operator'));
+        }
 }
 
 
 
 //render object data to DOM
 function renderHTML(logArray){
+    console.log(logArray)
     console.log(logArray[0].results);
     $('#lastestResults').text(`
         ${logArray[0].result}
@@ -63,7 +68,7 @@ function renderHTML(logArray){
     for(let history of logArray){
         $('#calcOutputs').append(`
             <li>
-                ${history.firstNumber} ${history.operator} ${history.secondNumber} = ${history.result}
+                ${history.equation} = ${history.result}
             </li>
         `);
     }

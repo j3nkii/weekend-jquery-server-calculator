@@ -20,10 +20,12 @@ let logOfCalculations = [];
 //receive data from user DOM
 app.post('/calc-send', (req, res) => {
     console.log('DATA RECEIVED',req.body);
-    let calculation = req.body;
-    calcuuLator3000(calculation);
-    console.log('CALCO3000', calculation)
-    logOfCalculations.unshift(calculation)
+    let equation = req.body.package;
+    let calculation = req.body.package;
+    console.log('CALCO3000', calculation);
+    equates(calculation.split(' '))
+    logOfCalculations.unshift({equation: equation, result: calculation[0]})
+    console.log(logOfCalculations);
     res.sendStatus(201)
 });
 
@@ -32,28 +34,47 @@ app.get('/calc-log', (req, res) => {
     res.send(logOfCalculations);
 });
 
-//function to handle operator
-function calcuuLator3000(obj){
-    switch (obj.operator) {
-        case '+':
-            obj.result = 
-            Number(obj.firstNumber) + Number(obj.secondNumber);
-            break;
-        case '-':
-            obj.result = 
-            obj.firstNumber - obj.secondNumber;
-            break;
-        case '*':
-            obj.result = 
-            obj.firstNumber * obj.secondNumber;
-            break;
-        case '/':
-            obj.result = 
-            obj.firstNumber / obj.secondNumber;
-            break;
-        default:
-            console.log('Not an Operator');
-            break;
+//eval?
+function isArithmatic(string){
+    for(let dig of string){
+        if(dig !== '.' && isNaN(Number(dig)) && dig !== '+' && dig !== '-' && dig !== '*' && dig !== '/' ){
+            console.log(dig);
+            return 'nope';
+        } 
     }
+    return eval(string)
 }
 
+
+
+//create a function to accepet and breakdow strings into arthmatic expressions
+//PE.MD.AS .. maybe ignore PE . . stretch goal
+function equates(arr){
+    //need to run through array,
+    console.log(arr);
+    for(let i in arr){
+        if(arr.length === 1){
+            return;
+        }
+        if(arr[i] === '/' || arr[i] === '*'){
+            if(arr[i] === '*'){
+                arr.splice(i - 1, 3, arr[i - 1] * arr[Number(i) + 1])
+                equates(arr)
+            } else if(arr[i] === '/'){
+                arr.splice(i - 1, 3, arr[i - 1] / arr[Number(i) + 1])
+                equates(arr)
+            } 
+        }
+    }
+    for(let i in arr){
+        if(arr[i] === '+' || arr[i] === '-'){
+            if(arr[i] === '+'){
+                arr.splice(i - 1, 3, Number(arr[i - 1]) + Number(arr[Number(i) + 1]))
+                equates(arr)
+            } else {
+                arr.splice(i - 1, 3, arr[i - 1] - arr[Number(i) + 1])
+                equates(arr)
+            }
+        }
+    }
+}
