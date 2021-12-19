@@ -21,10 +21,10 @@ let logOfCalculations = [];
 app.post('/calc-send', (req, res) => {
     console.log('DATA RECEIVED',req.body);
     let equation = req.body.package;
-    let calculation = req.body.package;
+    let calculation = req.body.package.split(' ');
     console.log('CALCO3000', calculation);
-    equates(calculation.split(' '))
-    logOfCalculations.unshift({equation: equation, result: calculation[0]})
+    console.log(equates(calculation), 'are you working?')
+    logOfCalculations.unshift({equation: equation, result: calculation});
     console.log(logOfCalculations);
     res.sendStatus(201)
 });
@@ -34,16 +34,6 @@ app.get('/calc-log', (req, res) => {
     res.send(logOfCalculations);
 });
 
-//eval?
-function isArithmatic(string){
-    for(let dig of string){
-        if(dig !== '.' && isNaN(Number(dig)) && dig !== '+' && dig !== '-' && dig !== '*' && dig !== '/' ){
-            console.log(dig);
-            return 'nope';
-        } 
-    }
-    return eval(string)
-}
 
 
 
@@ -51,11 +41,13 @@ function isArithmatic(string){
 //PE.MD.AS .. maybe ignore PE . . stretch goal
 function equates(arr){
     //need to run through array,
-    console.log(arr);
+    console.log(arr,' hey this is arr');
+    if(arr.length === 1){
+        console.log(arr, 'are you here?')
+        return arr;
+    }
     for(let i in arr){
-        if(arr.length === 1){
-            return;
-        }
+        
         if(arr[i] === '/' || arr[i] === '*'){
             if(arr[i] === '*'){
                 arr.splice(i - 1, 3, arr[i - 1] * arr[Number(i) + 1])

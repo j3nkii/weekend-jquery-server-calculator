@@ -4,6 +4,13 @@ $(ready)
 function ready(){
     $(document).on('submit', '#calcInputs', sendToServer);
     $(document).on('click', '.operatorInput', operatorCapture)
+    $(document).on('click', '#clearCalcInputs', clearInputs)
+}
+
+
+function clearInputs(){
+    $('#calcInput').val('')
+    operatorInput = ''
 }
 
 
@@ -13,6 +20,7 @@ function ready(){
 function sendToServer(event){
     event.preventDefault();
     console.log('SEND TO SERVER :calculation:',operatorInput);
+    
     $.ajax({
         method: 'POST',
         url: '/calc-send',
@@ -21,6 +29,7 @@ function sendToServer(event){
         console.log('POST', response);
         gatherFromServer()
     });
+    clearInputs()
 }
 
 
