@@ -22,43 +22,46 @@
     </form>     -->
 
     <form id="calcInputs">
-        <div>
+        <div class="calcRow">
             <input id="calcInput" type="text">
             <button id="clearCalcInputs" type ="reset">C</button>
         </div>
         <br>
-        <div>
+        <div class="calcRow">
             <button data-operator="7" class="operatorInput" id="buttonSeven" type="button">7</button>
             <button data-operator="8" class="operatorInput" id="buttonEight" type="button">8</button>
             <button data-operator="9" class="operatorInput" id="buttonNine" type="button">9</button>
             <button data-operator="+" class="operatorInput" id="plusInput" type="button">+</button>
         </div>
         <br>
-        <div>
+        <div class="calcRow">
             <button data-operator="4" class="operatorInput" id="buttonFour" type="button">4</button>
             <button data-operator="5" class="operatorInput" id="buttonFive" type="button">5</button>
             <button data-operator="6" class="operatorInput" id="buttonSix" type="button">6</button>
             <button data-operator="-" class="operatorInput" id="minusInput" type="button">-</button>
         </div>
         <br>
-        <div>
+        <div class="calcRow">
             <button data-operator="1" class="operatorInput" id="buttonOne" type="button">1</button>
             <button data-operator="2" class="operatorInput" id="buttonTwo" type="button">2</button>
             <button data-operator="3" class="operatorInput" id="buttonThree" type="button">3</button>
             <button data-operator="*" class="operatorInput" id="multiplicationInput" type="button">*</button>
         </div>
         <br>
-        <div>
+        <div class="calcRow">
             <button data-operator="0" class="operatorInput" id="buttonZero" type="button">0</button>
             <button data-operator="." class="operatorInput" id="buttonDeicmal" type="button">.</button>
             <input id="calcSubmission" type="submit" value="=">
             <button data-operator="/" class="operatorInput" id="divisionInput" type="button">/</button>
         </div>
     </form>
-
-    <h1 id="lastestResults">
-    </h1>
-    <ul id="calcOutputs">
-    </ul>
+    <div>
+        <h1 id="lastestResults">
+        </h1>
+    </div>    
+    <div>
+        <ul id="calcOutputs">
+        </ul>
+    </div>
 </body>
 </html>

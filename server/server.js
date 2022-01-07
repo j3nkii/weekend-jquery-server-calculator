@@ -5,7 +5,7 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(express.static('server/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,13 +20,16 @@ let logOfCalculations = [];
 //receive data from user DOM
 app.post('/calc-send', (req, res) => {
     console.log('DATA RECEIVED',req.body);
-    let equation = req.body.package;
-    let calculation = req.body.package.split(' ');
-    console.log('CALCO3000', calculation);
-    console.log(equates(calculation), 'are you working?')
-    logOfCalculations.unshift({equation: equation, result: calculation});
-    console.log(logOfCalculations);
-    res.sendStatus(201)
+    let reggieVal = /^(?:-?\d*\.?\d+ ?[\+\-\*\/] ?){1,}-?\d*\.?\d+$/gm //validating equation
+    if(reggieVal.test(req.body.package)){  //HAS NOT BEEN TESTED
+        let equation = req.body.package;
+        let calculation = req.body.package.split(' ');
+        console.log('CALCO3000', calculation);
+        console.log(equates(calculation), 'are you working?')
+        logOfCalculations.unshift({equation: equation, result: calculation});
+        console.log(logOfCalculations);
+        res.sendStatus(201)
+    }
 });
 
 //create send to DOM, sending current calculation result, plus log
@@ -70,3 +73,5 @@ function equates(arr){
         }
     }
 }
+
+console.log(process.env.MY_FAV_FOOD);

@@ -20,7 +20,6 @@ function clearInputs(){
 function sendToServer(event){
     event.preventDefault();
     console.log('SEND TO SERVER :calculation:',operatorInput);
-    
     $.ajax({
         method: 'POST',
         url: '/calc-send',
